@@ -1,7 +1,7 @@
 import openai
 
 # Задайте ваш API ключ
-openai.api_key = 'your-api-key'
+openai.api_key = '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'
 
 # Запит до асистента
 def get_assistant_response(user_input):
