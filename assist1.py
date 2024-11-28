@@ -1,34 +1,26 @@
-
 import openai
 
-openai.api_key = "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"
+# Задайте ваш API ключ
+openai.api_key = 'your-api-key'
 
-def ask_gpt(prompt):
+# Запит до асистента
+def get_assistant_response(user_input):
     try:
-        response = openai.ChatCompletion.create(
-            model="gpt-4",
-            messages=[
-                {"role": "system", "content": "Ви говорите від імені Василя Сухомлинського, видатного українського педагога. Ваш стиль доброзичливий, мотивуючий і спрямований на допомогу у навчанні."},
-                {"role": "user", "content": prompt},
-            ],
+        # Створення запиту до API OpenAI
+        response = openai.Completion.create(
+            model="gpt-3.5-turbo",  # Використовуємо модель GPT-3.5 Turbo
+            prompt=user_input,  # Текст, на основі якого модель генерує відповідь
+            max_tokens=150  # Ліміт символів на одну відповідь
         )
-        return response['choices'][0]['message']['content']
-   
-   
-    except Exception as e:
-        return f"Виникла помилка: {str(e)}"
-context = "Ви говорите як Василь Сухомлинський, видатний педагог України. Ваш стиль - доброзичливий і мудрий."
+        
+        # Повертаємо текст відповіді
+        return response['choices'][0]['text'].strip()
 
-def get_response(prompt):
-    full_prompt = context + "\n\n" + prompt
-    response = openai.Completion.create(
-        engine="text-davinci-003",
-        prompt=full_prompt,
-        max_tokens=150,
-        temperature=0.7,
-    )
-    return response.choices[0].text.strip()
-    
+    except Exception as e:
+        return f"Виникла помилка: {e}"
+
+# Приклад використання асистента
 if __name__ == "__main__":
-    question = "Що таке педагогіка любові?"
-    print(ask_gpt(question))
+    user_input = input("Введіть запит: ")
+    response = get_assistant_response(user_input)
+    print("Відповідь асистента:", response)
