@@ -1,5 +1,5 @@
 import streamlit as st
-from assist1 import ask_gpt
+from assist import ask_gpt
 
 st.title("Асистент Василя Сухомлинського")
 st.write("Цей AI допоможе вам дізнатися більше про педагогічні ідеї Сухомлинського.")
